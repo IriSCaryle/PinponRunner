@@ -10,9 +10,15 @@ public class Player : MonoBehaviour
 {
 
     //移動スピード
-    [SerializeField] float speed = 2f;
+    [SerializeField] float speed = 4f;
+
+    //ダッシュ時のスピード倍率
+    [SerializeField] float DashSpeed = 2f;
 
 
+    //前進しているかを整数で判定する変数
+
+    bool walk;
     //Main Cameraを入れる
     [SerializeField] Transform cam;
 
@@ -43,13 +49,32 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        Walking();
+    }
+
+    void Walking()
+    {
         //A・Dキー、←→キーで横移動
         float x = Input.GetAxisRaw("Horizontal") * Time.deltaTime * speed;
 
         //W・Sキー、↑↓キーで前後移動
         float z = Input.GetAxisRaw("Vertical") * Time.deltaTime * speed;
+        //Debug.Log(Input.GetAxisRaw("Vertical"));
+        //Debug.Log(Time.deltaTime);
 
-     
+
+        //前進しているか判定
+        if (Input.GetAxisRaw("Vertical") == 1)
+        {
+            walk = true;
+        }
+        else
+        {
+            walk = false;
+        }
+        //Debug.Log(Input.GetKey(KeyCode.LeftShift));
+        // Debug.Log(walk);
+
         //前移動の時だけ方向転換をさせる
         if (z > 0)
         {
@@ -58,6 +83,18 @@ public class Player : MonoBehaviour
         }
 
         //xとzの数値に基づいて移動
-        transform.position += transform.forward * z + transform.right * x;
+        //前進していてかつShiftが押されているとダッシュ倍率をかける。そうでなければ通常速度
+        if (walk == true && Input.GetKey(KeyCode.LeftShift) == true)
+        {
+            transform.position += transform.forward * z * DashSpeed + transform.right * x;
+        }
+        else
+        {
+            transform.position += transform.forward * z + transform.right * x;
+        }
+
+        // Debug.Log(z);
+
+
     }
 }
