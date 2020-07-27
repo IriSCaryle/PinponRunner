@@ -66,6 +66,7 @@ public class Axis : MonoBehaviour
 
         //X軸の角度
         float angleX = transform.eulerAngles.x;
+        Debug.Log(angleX);
         //X軸の値を180度超えたら360引くことで制限しやすくする
         if (angleX >= 180)
         {
