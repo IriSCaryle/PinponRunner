@@ -41,7 +41,7 @@ public class Axis : MonoBehaviour
 
     void CameraTps()
     {
-        //Axisの位置をユニティちゃんの位置＋axisPosで決める
+        //Axisの位置をPlayerの位置＋axisPosで決める
         transform.position = player.transform.position + axisPos;
         //三人称の時のCameraの位置にマウススクロールの値を足して位置を調整
         //thirdPosAdd = thirdPos + new Vector3(0, 0, scrollLog);
