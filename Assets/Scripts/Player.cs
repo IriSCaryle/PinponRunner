@@ -40,11 +40,11 @@ public class Player : MonoBehaviour
         //CapsuleColliderコンポーネントを取得
         caps = GetComponent<CapsuleCollider>();
         //CapsuleColliderの中心の位置を決める
-        caps.center = new Vector3(0, 0, 0);
+        caps.center = new Vector3(0, 0.068f, 0);
         //CapsuleColliderの半径を決める
-        caps.radius = 0.5f;
+        caps.radius = 0.04f;
         //CapsuleColliderの高さを決める
-        caps.height = 2f;
+        caps.height = 0.12f;
     }
 
     void Update()

@@ -83,7 +83,7 @@ public class Axis : MonoBehaviour
     void Initialization()
     {
         //CameraのAxisに相対的な位置をlocalPositionで指定
-        cam.transform.localPosition = new Vector3(0, 0, -5);
+        cam.transform.localPosition = new Vector3(0, 0.3f,-2.3f);
         //CameraとAxisの向きを最初だけそろえる
         cam.transform.localRotation = transform.rotation;
     }
