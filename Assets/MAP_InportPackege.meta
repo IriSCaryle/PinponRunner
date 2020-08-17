@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:Assets/MAP_InportPackege.meta
+guid: e5b00ebf38079b7409cd9a39c296b088
+folderAsset: yes
+DefaultImporter:
+=======
+guid: f72850bbe2e3d684c845eaf48279ddde
+NativeFormatImporter:
+>>>>>>> mahiro_dv:Assets/Material/asphalt.mat.meta
+  externalObjects: {}
+  mainObjectFileID: 0
+=======
+guid: e5b00ebf38079b7409cd9a39c296b088
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+>>>>>>> mahiro_dv
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
