@@ -5,9 +5,13 @@ using UnityEngine;
 public class ItemPick : MonoBehaviour
 {
 
-    GameObject gamemanager;
+    public GameObject eventmanager;
 
-    GameSystem flagscript;
+    public GameSystem flagscript;
+
+    
+
+    
     
 
 
@@ -15,8 +19,11 @@ public class ItemPick : MonoBehaviour
     void Start()
     {
         //GameSystemの変数を取得するためにオブジェクトとスクリプトを取得
-        gamemanager = GameObject.Find("GameManager");
-        flagscript = gamemanager.GetComponent<GameSystem>();
+        eventmanager = GameObject.Find ("EventManager");
+        flagscript = eventmanager.GetComponent<GameSystem>();
+
+
+        
 
     }
 
@@ -32,18 +39,21 @@ public class ItemPick : MonoBehaviour
     //接触したオブジェクトが引数otherとして渡される
     void OnTriggerStay(Collider other)
     {
-        //接触しているオブジェクトのタグが"Player"のとき
-        if (other.CompareTag("Player"))
+        if (flagscript.MissionComprete == true)
         {
-            //オブジェクトの色を赤に変更する
-            GetComponent<Renderer>().material.color = Color.red;
-
-            Debug.Log("アイテムを拾いますか");
-            if (Input.GetMouseButtonDown(0))
+            //接触しているオブジェクトのタグが"Player"のとき
+            if (other.CompareTag("Player"))
             {
-                Debug.Log("アイテムを入手した");
-                Destroy(this.gameObject);
-                flagscript.Key = true;
+                //オブジェクトの色を赤に変更する
+               GetComponent<Renderer>().material.color = Color.red;
+
+                Debug.Log("鍵を拾いますか");
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("鍵を入手した");
+                    Destroy(this.gameObject);
+                    flagscript.Key = true;
+                }
             }
         }
     }
@@ -52,7 +62,7 @@ public class ItemPick : MonoBehaviour
         //離れたオブジェクトのタグが"Player"のとき
         if (other.CompareTag("Player"))
         {
-            //オブジェクトの色を赤に変更する
+            //オブジェクトの色を白に変更する
             GetComponent<Renderer>().material.color = Color.white;
         }
     }

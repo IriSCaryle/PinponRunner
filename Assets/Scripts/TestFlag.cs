@@ -5,15 +5,14 @@ using UnityEngine;
 public class TestFlag : MonoBehaviour
 {
 
-    GameObject testgamemanager;
+    public GameObject testgamemanager;
 
-    GameSystem testflagscript;
+    public GameSystem gamesystem;
     // Start is called before the first frame update
     void Start()
     {
         //GameSystemの変数を取得するためにオブジェクトとスクリプトを取得
-        testgamemanager = GameObject.Find("GameManager");
-        testflagscript = testgamemanager.GetComponent<GameSystem>();
+       
     }
 
     // Update is called once per frame
@@ -33,7 +32,7 @@ public class TestFlag : MonoBehaviour
             {
                 Debug.Log("ミッションコンプリート");
                 
-                testflagscript.MissionComprete = true;
+                gamesystem.MissionComprete = true;
             }
         }
     }

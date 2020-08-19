@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //CapsuleColliderとRigidbodyを追加
 [RequireComponent(typeof(CapsuleCollider))]
@@ -8,12 +9,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    //*プレイヤー関連*//
 
     //移動スピード
-    [SerializeField] float speed = 4f;
+    public float speed = 4f;
 
     //ダッシュ時のスピード倍率
-    [SerializeField] float DashSpeed = 2f;
+    public float DashSpeed = 2f;
 
 
     //前進しているかを整数で判定する変数
@@ -26,10 +28,43 @@ public class Player : MonoBehaviour
      Rigidbody rb;
     //Capsule Colliderを入れる
      CapsuleCollider caps;
+    //*-------------*//
 
+    //*イベント1関連*//
+
+    
+
+    //連打指示のテキストを入れる変数
+    public GameObject actiontxt;
+    //連打回数のテキストを入れる変数
+    public Text repeatedhitstxt;
+    //全ピンポン連打数の保存先変数
+    public int hitstotal;
+
+
+    //ピンポンの回数の変数
+    public int PinponCounter;
+    //otherで受け取ったEventプレハブを一時的に入れておく変数  *Inspectorには何も入れないで！！！
+    public GameObject tmpEvent;
+    //ピンポンし終わった回数
+    public int PinponCount;
+    //すでにカウントしてないか判定
+    public bool counted;
+    //スタミナゲージに走っているか渡すためのブール変数
+    public bool run;
+    //ピンポンの回数をゲージに送る変数
+    public int pinpontotal;
+
+
+    //*------------*//
     void Start()
     {
-        
+
+        actiontxt.gameObject.SetActive(false);//テキストを非表示にする
+        repeatedhitstxt.gameObject.SetActive(false);
+
+
+
 
         //Rigidbodyコンポーネントを取得
         rb = GetComponent<Rigidbody>();
@@ -45,12 +80,82 @@ public class Player : MonoBehaviour
         caps.radius = 0.03f;
         //CapsuleColliderの高さを決める
         caps.height = 0.12f;
+
+        //ピンポンの回数の初期化
+        PinponCounter = 0;
+        pinpontotal = 0;
+        counted = true;
+        run = false;
+
+
+
     }
 
     void Update()
     {
         Walking();
+
     }
+
+    private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
+    {
+        if (other.CompareTag("Event") == true )//踏んだコライダーのタグがEventタグだった場合
+        {
+            
+            actiontxt.gameObject.SetActive(true);//クリックでインターホンを連打 を表示
+            repeatedhitstxt.gameObject.SetActive(true);//連打回数を表示
+            
+
+
+            tmpEvent = other.gameObject;　　　　//EventプレハブをローカルのGameObject変数に入れる
+
+            if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
+            {
+                pinpontotal++;
+                PinponCounter++;
+                repeatedhitstxt.text = "" + PinponCounter;
+
+                if (counted == true)
+                {
+                    PinponCount = PinponCount + 1;
+                    counted = false;
+                }
+            }
+
+
+
+            Debug.Log("ピンポンを連打");
+            Debug.Log(PinponCounter);
+            Debug.Log(PinponCount);
+            Debug.Log(hitstotal);
+
+            Invoke("DestroyEvent",3); //3秒後にDestroyEventを実行 ↓↓
+
+        }
+
+
+
+    }
+
+    void DestroyEvent()
+    {
+        actiontxt.gameObject.SetActive(false);   //上部で表示したテキストを非表示
+        repeatedhitstxt.gameObject.SetActive(false);
+        //ピンポン連打数を保存して合計を計算
+        hitstotal = hitstotal + int.Parse(repeatedhitstxt.text);
+        //テキストに入れるカウント数を0に戻して初期化
+        repeatedhitstxt.text = "0";
+        PinponCounter = 0;
+
+        
+       Destroy(tmpEvent);               //ピンポンしたEventプレハブを消す
+        counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
+        
+
+    }
+
+
+
 
     void Walking()
     {
@@ -67,6 +172,7 @@ public class Player : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") == 1)
         {
             walk = true;
+            
         }
         else
         {
@@ -87,14 +193,16 @@ public class Player : MonoBehaviour
         if (walk == true && Input.GetKey(KeyCode.LeftShift) == true)
         {
             transform.position += transform.forward * z * DashSpeed + transform.right * x;
+            run = true;
         }
         else
         {
             transform.position += transform.forward * z + transform.right * x;
+            run = false;
         }
 
         // Debug.Log(z);
-
+        //Debug.Log(run);
 
     }
 }
