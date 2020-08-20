@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     //ピンポンの回数の変数
     public int PinponCounter;
     //otherで受け取ったEventプレハブを一時的に入れておく変数  *Inspectorには何も入れないで！！！
-    public GameObject tmpEvent;
+     GameObject tmpEvent;
     //ピンポンし終わった回数
     public int PinponCount;
     //すでにカウントしてないか判定

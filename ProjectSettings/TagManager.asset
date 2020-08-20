@@ -8,6 +8,7 @@ TagManager:
   - Key
   - EventManager
   - Event
+  - NavPoint
   layers:
   - Default
   - TransparentFX

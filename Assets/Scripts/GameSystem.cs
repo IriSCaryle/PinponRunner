@@ -10,6 +10,22 @@ public class GameSystem : MonoBehaviour
     public bool MissionComprete;
     public bool KeyGetted;
 
+
+
+    //UIのプレハブ
+
+    [SerializeField]
+    GameObject clearCanvasPrefab; //クリアしたときの画面のプレハブ
+    [SerializeField]
+    GameObject gameOverCanvasPrefab;//ゲームオーバーしたときのプレハブ
+
+    //カウントダウン用の変数
+    [System.NonSerialized]
+    public bool countDown = false;
+
+    //デバッグモード
+    public bool isDebugMode;
+
     //イベント1の最大数
     public int Event1Count = 3;
     //イベント1完了数
