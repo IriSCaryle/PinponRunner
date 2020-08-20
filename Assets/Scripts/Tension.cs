@@ -10,8 +10,10 @@ public class Tension : MonoBehaviour
     public Image tentionimage;
     public float Tentioncurrent;
     public int maxTention;
+    public Stamina staminascript;
     
-    int tempcount =0;
+    public int tempcount =0;
+    int tentionmaxtime = 5;
 
 
     // Start is called before the first frame update
@@ -25,12 +27,14 @@ public class Tension : MonoBehaviour
     {
         
             Tention();
+       
+        TentionReset();
         
     }
     void Tention()
     {
 
-        if (tempcount != playerscript.pinpontotal  )
+        if (tempcount != playerscript.pinpontotal && staminascript.tentionmax == false )
         {
             Tentioncurrent += (playerscript.pinpontotal ) - tempcount;
             tempcount = (int)Tentioncurrent;
@@ -38,4 +42,18 @@ public class Tension : MonoBehaviour
             tentionimage.fillAmount = Tentioncurrent / maxTention;
         }
     }
+
+    void TentionReset()
+    {
+        if (staminascript.tentionmax == true)
+        {
+            Tentioncurrent = 0;
+            tempcount = 0;
+            playerscript.pinpontotal = 0;
+            tentionimage.fillAmount = Tentioncurrent / maxTention;
+        }
+    }
+  
+
+    
 }

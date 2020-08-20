@@ -12,7 +12,8 @@ public class Stamina : MonoBehaviour
     public int maxStamina = 100;//最大スタミナ量
     public float staminaconsumption= 1.3f;//スタミナ消費量
     public float staminaheal = 0.6f;//スタミナ回復量
-   
+    public bool tentionmax;
+    public Tension TentionScript;
 
 
     // Start is called before the first frame update
@@ -26,13 +27,44 @@ public class Stamina : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        staminaDown();
+        staminaDown();//通常のスタミナ消費
+        staminamax();//テンションゲージを消費するとスタミナが減らなくなる
+        tentionconsum();//テンションゲージが溜まりTを押すと判定がtrueになり他のスクリプトが動く5秒後falseになり制御終了
+        //Debug.Log(tentionmax);
     }
 
+    void staminamax()
+    {
+        if (tentionmax == true) {//テンションゲージを消費するとスタミナが100固定になりfillamountに常に送られる
+            Staminacurrent = 100;
+            image.fillAmount = Staminacurrent / maxStamina;
+            }
+    }
+
+    void tentionconsum()
+    {
+        if (TentionScript.tempcount >= 100)//テンションの数値が100以上になった時
+        {
+            if (Input.GetKeyDown(KeyCode.T))//Tが押されたら
+            {
+
+
+                tentionmax = true; //テンションを消費する(この条件でif文を書くとそれが動く)
+
+                Invoke("TentionNomal", 5);//５秒後にTentionNomalを実行する↓↓
+            }
+        }
+    }
+    
+    void TentionNomal()
+    {
+
+        tentionmax = false;//テンションゲージの消費のオンをオフにして元に戻す
+    }
     void staminaDown()
     {
         //スタミナが0以上で走ってる間スタミナゲージを減らす
-        if (0 <= Staminacurrent && playerscript.run == true) 
+        if (0 <= Staminacurrent && playerscript.run == true && tentionmax == false) 
         {
             Staminacurrent = Staminacurrent - staminaconsumption;
 
@@ -51,6 +83,8 @@ public class Stamina : MonoBehaviour
             
 
         }
+
+        
         
         if(Staminacurrent <= 0 )
         {

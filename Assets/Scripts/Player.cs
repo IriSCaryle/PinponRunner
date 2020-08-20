@@ -93,8 +93,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        Walking();
+        
 
+    }
+    void LateUpdate()
+    {
+        Walking(); 
     }
 
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時

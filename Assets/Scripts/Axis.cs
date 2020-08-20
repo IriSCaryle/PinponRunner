@@ -31,11 +31,15 @@ public class Axis : MonoBehaviour
 
     void Update()
     {
-        
-            CameraTps();
-            //キャラクター基準で周りを見渡せる
-        
-        
+      
+
+
+    }
+
+    void LateUpdate()
+    {
+        CameraTps();
+        //キャラクター基準で周りを見渡せる
     }
 
 
