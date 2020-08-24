@@ -44,7 +44,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        KeyGetted = false;
         //変数の初期化
         Key = false;
         //イベント１確認bool
