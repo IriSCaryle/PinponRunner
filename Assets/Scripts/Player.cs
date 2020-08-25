@@ -46,6 +46,10 @@ public class Player : MonoBehaviour
     public int PinponCounter;
     //otherで受け取ったEventプレハブを一時的に入れておく変数  *Inspectorには何も入れないで！！！
      GameObject tmpEvent;
+    //canvasの親を取得
+    GameObject ParentEvent;
+    //Canvasを非表示にするために入れる変数
+    Canvas tmpPointCanvas;
     //ピンポンし終わった回数
     public int PinponCount;
     //すでにカウントしてないか判定
@@ -111,7 +115,11 @@ public class Player : MonoBehaviour
             
 
 
-            tmpEvent = other.gameObject;　　　　//EventプレハブをローカルのGameObject変数に入れる
+            tmpEvent = other.gameObject;    //EventプレハブをローカルのGameObject変数に入れる
+
+            ParentEvent = other.transform.parent.gameObject;//コライダーの親を取得
+
+            tmpPointCanvas = ParentEvent.transform.FindChild("PointCanvas").GetComponent<Canvas>();
 
             if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {
@@ -151,7 +159,7 @@ public class Player : MonoBehaviour
         repeatedhitstxt.text = "0";
         PinponCounter = 0;
 
-        
+        tmpPointCanvas.gameObject.SetActive(false);
        Destroy(tmpEvent);               //ピンポンしたEventプレハブを消す
         counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
         

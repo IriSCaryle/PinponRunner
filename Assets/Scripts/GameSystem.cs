@@ -27,7 +27,7 @@ public class GameSystem : MonoBehaviour
     public bool isDebugMode;
 
     //イベント1の最大数
-    public int Event1Count = 3;
+    public int Event1Count = 4;
     //イベント1完了数
     public int Event1Counter;
     //プレイヤーオブジェクト
@@ -40,6 +40,46 @@ public class GameSystem : MonoBehaviour
     public Text Event2Text;
     //イベント1テキスト
     public Text Event1Text;
+
+    //*イベント1のポイントの変数*//
+
+        //各エリアの変数
+    public GameObject Area1;
+    public GameObject Area2;
+    public GameObject Area3;
+    public GameObject Area4;
+    //各エリアのオブジェクト数
+    int numArea1;
+    int numArea2;
+    int numArea3;
+    int numArea4;
+
+    public GameObject[] Area1_point = new GameObject[5]; 
+    public GameObject[] Area2_point = new GameObject[5];
+    public GameObject[] Area3_point = new GameObject[4];
+    public GameObject[] Area4_point = new GameObject[4];
+
+    int numcount;//番号を入れる変数
+
+    int randomnum1;
+    int randomnum2;
+    int randomnum3;
+    int randomnum4;
+
+    //イベント1の候補
+    public GameObject[] EventPoint = new GameObject[4];
+
+
+    //ピンのローカル座標
+    public Vector3 PointPosition;
+
+
+   
+    //ピンのキャンバス変数
+    public Canvas Point1;
+    public Canvas Point2;
+    public Canvas Point3;
+    public Canvas Point4;
 
     // Start is called before the first frame update
     void Start()
@@ -60,9 +100,135 @@ public class GameSystem : MonoBehaviour
 
     }
 
-    void Mission1inti() //イベント1のテキストを初期化
+    void Mission1inti() 
+        //イベント1のテキストを初期化
     {
+        numcount = 0;
         Event1CompText.text = "0/0";
+
+    
+
+        //Area1のオブジェクトのtransformを取得
+        foreach (Transform childTransform in Area1.transform)
+        {
+            if (childTransform.gameObject.CompareTag("Target"))//Targetがついているオブジェクトのみ取得
+            {
+                
+                Area1_point[numcount] = childTransform.gameObject; //エリア1の配列に今数えている数番目の場所に代入
+                Debug.Log("Area1 is " + childTransform.gameObject.name + " " + numcount + "番目に代入されました") ;//わかりやすいようにコンソール表示
+                numArea1 += 1;//numを増やす
+                numcount += 1;
+
+
+            }
+        }
+        numcount = 0;//他で利用するのでいったんリセット
+
+        //Area2のオブジェクトのtransformを取得
+        foreach (Transform childTransform2 in Area2.transform)
+        {
+            if (childTransform2.gameObject.CompareTag("Target"))//Targetがついているオブジェクトのみ取得
+            {
+                Area2_point[numcount] = childTransform2.gameObject; //エリア2の配列に今数えている数番目の場所に代入
+                Debug.Log("Area2 is " + childTransform2.gameObject.name + " " + numcount + "番目に代入されました");//わかりやすいようにコンソール表示
+                numArea2 += 1;
+                numcount += 1;
+            }
+        }
+        numcount = 0;
+
+
+        //Area3のオブジェクトのtransformを取得
+        foreach(Transform childTransform3 in Area3.transform)
+        {
+            if (childTransform3.gameObject.CompareTag("Target"))////Targetがついているオブジェクトのみ取得
+            {
+                Area3_point[numcount] = childTransform3.gameObject; //エリア1の配列に今数えている数番目の場所に代入
+                Debug.Log("Area3 is " + childTransform3.gameObject.name + " " + numcount  + "番目に代入されました") ;//わかりやすいようにコンソール表示
+                numArea3 += 1;
+                numcount += 1;
+            }
+
+        }
+        numcount = 0;
+
+
+        //Area4のオブジェクトのtransformを取得
+        foreach (Transform childTransform4 in Area4.transform)
+        {
+            if (childTransform4.gameObject.CompareTag("Target"))////Targetがついているオブジェクトのみ取得
+            {
+                Area4_point[numcount] = childTransform4.gameObject; //エリア1の配列に今数えている数番目の場所に代入
+
+                Debug.Log("Area4 is " + childTransform4.gameObject.name + " " + numcount + "番目に代入されました");//わかりやすいようにコンソール表示
+                numArea4 += 1;
+                numcount += 1;
+            }
+
+        }
+
+        randomnum1 = Random.Range(0, 4);
+        Debug.Log("エリア1" + " " + randomnum1 + "番");
+        randomnum2 = Random.Range(0, 4);
+        Debug.Log("エリア2" + " " + randomnum2 + "番");
+        randomnum3 = Random.Range(0, 3);
+        Debug.Log("エリア3" + " " + randomnum3 + "番");
+        randomnum4 = Random.Range(0, 3);
+        Debug.Log("エリア4" + " " + randomnum4 + "番");
+        EventPoint[0] = Area1_point[randomnum1];//エリア1のランダムに選択した位置のオブジェクトを入れる
+        EventPoint[1] = Area2_point[randomnum2];//エリア2
+        EventPoint[2] = Area3_point[randomnum3];//エリア3
+        EventPoint[3] = Area4_point[randomnum2];//エリア4
+
+
+        EventPoint[0].transform.Find("DoorCollider").gameObject.SetActive(true);//候補に選ばれた家の中にあるDoorColliderというプレハブのアクティブ化
+        EventPoint[1].transform.Find("DoorCollider").gameObject.SetActive(true);
+        EventPoint[2].transform.Find("DoorCollider").gameObject.SetActive(true);
+        EventPoint[3].transform.Find("DoorCollider").gameObject.SetActive(true);
+
+        //*----*//
+        EventPoint[0].transform.Find("PointCanvas").gameObject.SetActive(true);//ピンのアクティブ化
+
+        Point1 = EventPoint[0].transform.Find("PointCanvas").GetComponent<Canvas>();//座標を変えるためにCanvasを取得して変数に代入
+
+        Point1.transform.localPosition = PointPosition;
+        //*----*//
+
+        //*----*//
+        EventPoint[1].transform.Find("PointCanvas").gameObject.SetActive(true);
+
+        Point2 = EventPoint[1].transform.Find("PointCanvas").GetComponent<Canvas>();
+
+        Point2.transform.localPosition = PointPosition;
+        //*----*//
+
+        //*----*//
+        EventPoint[2].transform.Find("PointCanvas").gameObject.SetActive(true);
+
+        Point3 = EventPoint[2].transform.Find("PointCanvas").GetComponent<Canvas>();
+
+        Point3.transform.localPosition = PointPosition;
+        //*----*//
+
+        //*----*//
+        EventPoint[3].transform.Find("PointCanvas").gameObject.SetActive(true);
+
+        Point4 = EventPoint[3].transform.Find("PointCanvas").GetComponent<Canvas>();
+
+        Point4.transform.localPosition = PointPosition;
+        //*----*//
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
     // Update is called once per frame

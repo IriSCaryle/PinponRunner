@@ -9,6 +9,7 @@ TagManager:
   - EventManager
   - Event
   - NavPoint
+  - Target
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - PingUI
   - 
   - 
   - 
