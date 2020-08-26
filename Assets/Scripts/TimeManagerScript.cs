@@ -24,7 +24,7 @@ public class TimeManagerScript : MonoBehaviour
     {
         character = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         playerRigidbody = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody>();
-        gameManagerObj = GameObject.Find("GameManager");
+        gameManagerObj = GameObject.Find("EventManager");
         gameManager = gameManagerObj.GetComponent<GameSystem>();
         //soundManager = gameManagerObj.GetComponent<SoundManager>();
 

@@ -97,12 +97,12 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+        Walking();
 
     }
     void LateUpdate()
     {
-        Walking(); 
+        
     }
 
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
@@ -123,6 +123,7 @@ public class Player : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {
+                Debug.Log("クリック!");
                 pinpontotal++;
                 PinponCounter++;
                 repeatedhitstxt.text = "" + PinponCounter;
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour
         PinponCounter = 0;
 
         tmpPointCanvas.gameObject.SetActive(false);
-       Destroy(tmpEvent);               //ピンポンしたEventプレハブを消す
+        tmpEvent.gameObject.SetActive(false);            //ピンポンしたEventプレハブを消す
         counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
         
 
