@@ -119,7 +119,7 @@ public class Player : MonoBehaviour
 
             ParentEvent = other.transform.parent.gameObject;//コライダーの親を取得
 
-            tmpPointCanvas = ParentEvent.transform.FindChild("PointCanvas").GetComponent<Canvas>();
+            tmpPointCanvas = ParentEvent.transform.Find("PointCanvas").GetComponent<Canvas>();
 
             if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {

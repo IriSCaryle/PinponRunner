@@ -81,6 +81,15 @@ public class GameSystem : MonoBehaviour
     public Canvas Point3;
     public Canvas Point4;
 
+    //*イベント2関連*//
+
+    public GameObject PlayerHome;//プレイヤーの家（ここに入ると終わる）変数
+    public GameObject KeyObject;//キーオブジェクト
+
+   
+    
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -95,6 +104,7 @@ public class GameSystem : MonoBehaviour
         Event2Text.gameObject.SetActive(false);
         
         Mission1inti();
+        Mission2inti();
 
        
 
@@ -231,6 +241,13 @@ public class GameSystem : MonoBehaviour
 
     }
 
+    void Mission2inti()
+    {
+        
+
+      
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -260,19 +277,22 @@ public class GameSystem : MonoBehaviour
     void Mission2()//
     {
 
-      
-        if (MissionComprete == true && KeyGetted == false)
+
+        if (MissionComprete == true && KeyGetted == false && Key == false) 
         {
 
             
-            KeyGetted = true;
-            //ResourcesフォルダからkeyPrefabをロードする
-            GameObject obj = (GameObject)Resources.Load("key_pivot");
-            // プレハブを元にオブジェクトを生成する
-            GameObject instance = (GameObject)Instantiate(obj,
-                                                          new Vector3(5.0f, 1.0f, 0.0f),
-                                                          Quaternion.identity);
+            KeyGetted = true;//キーがゲットできる状態にする
+                             //keypivotを表示にする
+            KeyObject.transform.Find("Key_pivot").gameObject.SetActive(true);
+          
         }
 
+        if (Key == true)
+        {
+            PlayerHome.transform.Find("homecollider").gameObject.SetActive(true);//ホームコライダー表示
+            PlayerHome.transform.Find("HomePointCanvas").gameObject.SetActive(true);//ホームアイコン表示
+
+        }
     }
 }
