@@ -12,6 +12,23 @@ public class GameSystem : MonoBehaviour
 
 
 
+    //タイマー関連//
+    public bool countdown = false; //カウントダウンのブール値
+
+    
+
+    public Rigidbody playerRigidbody;
+
+    public GameObject freelookCam;
+    public Axis camScript;
+
+
+    //*-------*//
+    //gameover関連//
+    
+    public Text NextText;
+
+        //*---*//
     //UIのプレハブ
 
     [SerializeField]
@@ -25,6 +42,10 @@ public class GameSystem : MonoBehaviour
 
     //デバッグモード
     public bool isDebugMode;
+
+    public GameObject DebugCanvas;
+    public Canvas DebugLog;
+    public Text TotalTime;
 
     //イベント1の最大数
     public int Event1Count = 4;
@@ -86,13 +107,18 @@ public class GameSystem : MonoBehaviour
     public GameObject PlayerHome;//プレイヤーの家（ここに入ると終わる）変数
     public GameObject KeyObject;//キーオブジェクト
 
-   
-    
+    public bool InHouse;
+
+
+    //*フェードアウト*//
+    public GameObject fedemanager;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        InHouse = false;
+
         KeyGetted = false;
         //変数の初期化
         Key = false;
@@ -105,8 +131,24 @@ public class GameSystem : MonoBehaviour
         
         Mission1inti();
         Mission2inti();
+        //カメラのコンポーネントを取得
+        camScript = freelookCam.GetComponent<Axis>();
 
+        //debugのCanvasを取得
+        DebugLog = DebugCanvas.GetComponent<Canvas>();
+
+        if (isDebugMode == true)
+        {
+           
+            DebugLog.enabled = true;
+        }
+        else
+        {
+            DebugLog.enabled = false;
+        }
        
+
+
 
     }
 
@@ -285,7 +327,7 @@ public class GameSystem : MonoBehaviour
             KeyGetted = true;//キーがゲットできる状態にする
                              //keypivotを表示にする
             KeyObject.transform.Find("Key_pivot").gameObject.SetActive(true);
-          
+            KeyObject.transform.Find("PointCanvas").gameObject.SetActive(true);
         }
 
         if (Key == true)
@@ -294,5 +336,44 @@ public class GameSystem : MonoBehaviour
             PlayerHome.transform.Find("HomePointCanvas").gameObject.SetActive(true);//ホームアイコン表示
 
         }
+        if(InHouse == true)
+        {
+            GameClear();
+
+
+        }
+    }
+
+
+    public void GameOver()
+    {
+        Debug.Log("GameOver");
+        countDown = false;
+
+        //キャラやカメラの移動を停止させる
+        
+        playerRigidbody.isKinematic = true;
+        camScript.enabled = false;
+        NextText.enabled = false;
+        gameOverCanvasPrefab = Instantiate(gameOverCanvasPrefab);
+        NextText.enabled  = true;
+
+
+    }
+    public void GameClear()
+    {
+        Debug.Log("GameClear");
+
+        countDown = false;
+
+        //キャラやカメラの移動を停止させる
+
+        playerRigidbody.isKinematic = true;
+        camScript.enabled = false;
+        NextText.enabled = false;
+        gameOverCanvasPrefab = Instantiate(gameOverCanvasPrefab);
+        NextText.enabled = true;
+
+
     }
 }

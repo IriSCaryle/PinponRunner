@@ -42,7 +42,7 @@ public class Blink : MonoBehaviour
 
 
         //テンションが100以上でテンションゲージを消費していない時は白い画像を表示する
-        if(TentionScript.Tentioncurrent >= 100 && TentionScript.staminascript.tentionmax ==false)
+        if(TentionScript.Tentioncurrent >= 30 && TentionScript.staminascript.tentionmax ==false)
         {
             image.color = new Color(1, 1, 1, 1);
             //オブジェクトのAlpha値を更新

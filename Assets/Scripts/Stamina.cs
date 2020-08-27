@@ -14,7 +14,7 @@ public class Stamina : MonoBehaviour
     public float staminaheal = 0.6f;//スタミナ回復量
     public bool tentionmax;
     public Tension TentionScript;
-
+    public int HiTentionMode;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +43,7 @@ public class Stamina : MonoBehaviour
 
     void tentionconsum()
     {
-        if (TentionScript.tempcount >= 50)//テンションの数値が50以上になった時
+        if (TentionScript.tempcount >= 30)//テンションの数値が50以上になった時
         {
             if (Input.GetKeyDown(KeyCode.T))//Tが押されたら
             {
@@ -51,7 +51,7 @@ public class Stamina : MonoBehaviour
 
                 tentionmax = true; //テンションを消費する(この条件でif文を書くとそれが動く)
 
-                Invoke("TentionNomal", 5);//５秒後にTentionNomalを実行する↓↓
+                Invoke("TentionNomal", HiTentionMode);//５秒後にTentionNomalを実行する↓↓
             }
         }
     }
@@ -88,7 +88,7 @@ public class Stamina : MonoBehaviour
         
         if(Staminacurrent <= 0 )
         {
-            playerscript.DashSpeed = 1;
+            playerscript.DashSpeed = 0.75f;
 
 
 

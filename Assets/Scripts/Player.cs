@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     //前進しているかを整数で判定する変数
 
-    bool walk;
+    public bool walk;
     //Main Cameraを入れる
     [SerializeField] Transform cam;
 
@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
         pinpontotal = 0;
         counted = true;
         run = false;
-
+        walk = false;
 
 
     }
@@ -215,7 +215,7 @@ public class Player : MonoBehaviour
         }
 
         // Debug.Log(z);
-        //Debug.Log(run);
+        //Debug.Log(walk);
 
     }
 }

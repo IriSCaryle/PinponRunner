@@ -20,6 +20,7 @@ public class Patrol : MonoBehaviour
     [SerializeField] float trackingRange = 3f;
     [SerializeField] float quitRange = 5f;
     [SerializeField] bool tracking = false;
+    
 
     void Start()
     {
@@ -64,8 +65,10 @@ public class Patrol : MonoBehaviour
         {
             //追跡の時、quitRangeより距離が離れたら中止
             if (distance > quitRange)
+            {
                 tracking = false;
-
+                agent.speed = 3.5f;
+            }
             //Playerを目標とする
             agent.destination = playerPos;
         }
@@ -73,13 +76,18 @@ public class Patrol : MonoBehaviour
         {
             //PlayerがtrackingRangeより近づいたら追跡開始
             if (distance < trackingRange)
+            {
                 tracking = true;
+                agent.speed = 5;
+            }
 
 
             // エージェントが現目標地点に近づいてきたら、
             // 次の目標地点を選択します
-            if (!agent.pathPending && agent.remainingDistance < 0.5f)
-                GotoNextPoint();
+            if (!agent.pathPending && agent.remainingDistance < 0.5f) { 
+            GotoNextPoint();
+        }
+            Debug.Log(tracking);
         }
     }
 
