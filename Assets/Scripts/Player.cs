@@ -63,7 +63,8 @@ public class Player : MonoBehaviour
 
     float second;
 
-
+    public GameObject eventmanager;
+    public GameSystem eventsys;
     //*------------*//
     void Start()
     {
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour
         repeatedhitstxt.gameObject.SetActive(false);
 
 
-
+        eventsys = eventmanager.GetComponent<GameSystem>();
 
         //Rigidbodyコンポーネントを取得
         rb = GetComponent<Rigidbody>();
@@ -109,6 +110,14 @@ public class Player : MonoBehaviour
         
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy") == true)
+        {
+
+            eventsys.GameOver();
+        }
+    }
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
     {
         if (other.CompareTag("Event") == true && counted == true )//踏んだコライダーのタグがEventタグだった場合
