@@ -19,12 +19,12 @@ public class InHouseSC : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)//家のコライダーに入った時
     {
-        if (other.CompareTag("Player") == true)//踏んだコライダーのタグがPlayerタグだった場合
+        if (other.CompareTag("Player") == true && gamesystem.Key == false)//踏んだコライダーのタグがPlayerタグだった場合
         {
             Debug.Log("鍵がないと家に入れません鍵を手に入れましょう");
 
 
-        }else if(gamesystem.Key == true)
+        }else if(other.CompareTag("Player")== true && gamesystem.Key == true )
         {
             Debug.Log("家に入りますか？");
 

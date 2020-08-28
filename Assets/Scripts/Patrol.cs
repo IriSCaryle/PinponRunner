@@ -87,7 +87,7 @@ public class Patrol : MonoBehaviour
             if (!agent.pathPending && agent.remainingDistance < 0.5f) { 
             GotoNextPoint();
         }
-            Debug.Log(tracking);
+            
         }
     }
 

@@ -13,6 +13,7 @@ public class CountUp : MonoBehaviour
     public int minute;
 
     public GameSystem gameManager;
+    public string TotalTime;
 
 
     // Start is called before the first frame update
@@ -21,6 +22,8 @@ public class CountUp : MonoBehaviour
        secondTime = 0;
         DecimalTime = "000";
         minute = 00;
+
+
     }
 
     // Update is called once per frame
@@ -46,5 +49,15 @@ public class CountUp : MonoBehaviour
         }
 
         CountUpText.text = minute + "\'" + secondTime.ToString("0#.###");
+
+        if (gameManager.countdown == false){
+
+            TotalTime = CountUpText.text;
+            Debug.Log(TotalTime);
+        }
+        
     }
+
+
+    
 }

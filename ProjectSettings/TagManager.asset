@@ -11,6 +11,7 @@ TagManager:
   - NavPoint
   - Target
   - home
+  - Enemy
   layers:
   - Default
   - TransparentFX

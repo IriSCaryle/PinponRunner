@@ -46,6 +46,6 @@ public class Transtion : MonoBehaviour
             animator.SetInteger("trans",trans);
         }
 
-        Debug.Log(trans);
+       
     }
 }

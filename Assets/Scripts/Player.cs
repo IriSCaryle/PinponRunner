@@ -58,6 +58,10 @@ public class Player : MonoBehaviour
     public bool run;
     //ピンポンの回数をゲージに送る変数
     public int pinpontotal;
+    //プレハブが消えたかを確認する変数
+    public bool DestroyComp;
+
+    float second;
 
 
     //*------------*//
@@ -91,8 +95,8 @@ public class Player : MonoBehaviour
         counted = true;
         run = false;
         walk = false;
-
-
+        DestroyComp = false;
+        
     }
 
     void Update()
@@ -107,7 +111,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
     {
-        if (other.CompareTag("Event") == true )//踏んだコライダーのタグがEventタグだった場合
+        if (other.CompareTag("Event") == true && counted == true )//踏んだコライダーのタグがEventタグだった場合
         {
             
             actiontxt.gameObject.SetActive(true);//クリックでインターホンを連打 を表示
@@ -120,7 +124,7 @@ public class Player : MonoBehaviour
             ParentEvent = other.transform.parent.gameObject;//コライダーの親を取得
 
             tmpPointCanvas = ParentEvent.transform.Find("PointCanvas").GetComponent<Canvas>();
-
+             second += Time.deltaTime;
             if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {
                 Debug.Log("クリック!");
@@ -128,21 +132,26 @@ public class Player : MonoBehaviour
                 PinponCounter++;
                 repeatedhitstxt.text = "" + PinponCounter;
 
-                if (counted == true)
-                {
-                    PinponCount = PinponCount + 1;
-                    counted = false;
-                }
+                
             }
 
-
-
+            
+            if (second >= 3)
+            {
+                DestroyEvent();
+                if (DestroyComp)
+                {
+                    PinponCount = PinponCount + 1;
+                    DestroyComp = false;
+                }
+                second = 0;
+            }
             Debug.Log("ピンポンを連打");
             Debug.Log(PinponCounter);
             Debug.Log(PinponCount);
             Debug.Log(hitstotal);
-
-            Invoke("DestroyEvent",3); //3秒後にDestroyEventを実行 ↓↓
+            
+            
 
         }
 
@@ -152,6 +161,7 @@ public class Player : MonoBehaviour
 
     void DestroyEvent()
     {
+        Debug.Log("実行された");
         actiontxt.gameObject.SetActive(false);   //上部で表示したテキストを非表示
         repeatedhitstxt.gameObject.SetActive(false);
         //ピンポン連打数を保存して合計を計算
@@ -162,8 +172,13 @@ public class Player : MonoBehaviour
 
         tmpPointCanvas.gameObject.SetActive(false);
         tmpEvent.gameObject.SetActive(false);            //ピンポンしたEventプレハブを消す
-        counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
+
         
+
+        
+        counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
+
+        DestroyComp = true;
 
     }
 

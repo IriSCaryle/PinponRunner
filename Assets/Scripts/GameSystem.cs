@@ -15,18 +15,19 @@ public class GameSystem : MonoBehaviour
     //タイマー関連//
     public bool countdown = false; //カウントダウンのブール値
 
-    
+    public static string timescore;//他シーンへ渡すクリアタイム
 
-    public Rigidbody playerRigidbody;
-
-    public GameObject freelookCam;
+    public Rigidbody playerRigidbody;//プレイヤーのリジットボディ
+    public GameObject StopWatch;//タイマーマネージャーオブジェクト
+    public CountUp StringTime;//カウントアップscript
+    public GameObject freelookCam;//カメラオブジェクト
     public Axis camScript;
 
 
     //*-------*//
     //gameover関連//
     
-    public Text NextText;
+    
 
         //*---*//
     //UIのプレハブ
@@ -134,6 +135,7 @@ public class GameSystem : MonoBehaviour
         //カメラのコンポーネントを取得
         camScript = freelookCam.GetComponent<Axis>();
 
+        StringTime = StopWatch.GetComponent<CountUp>();
         //debugのCanvasを取得
         DebugLog = DebugCanvas.GetComponent<Canvas>();
 
@@ -332,6 +334,7 @@ public class GameSystem : MonoBehaviour
 
         if (Key == true)
         {
+            KeyObject.transform.Find("PointCanvas").gameObject.SetActive(false);
             PlayerHome.transform.Find("homecollider").gameObject.SetActive(true);//ホームコライダー表示
             PlayerHome.transform.Find("HomePointCanvas").gameObject.SetActive(true);//ホームアイコン表示
 
@@ -354,9 +357,9 @@ public class GameSystem : MonoBehaviour
         
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
-        NextText.enabled = false;
-        gameOverCanvasPrefab = Instantiate(gameOverCanvasPrefab);
-        NextText.enabled  = true;
+        
+        
+       
 
 
     }
@@ -366,14 +369,16 @@ public class GameSystem : MonoBehaviour
 
         countDown = false;
 
+        timescore = StringTime.TotalTime;
+        Debug.Log("タイムは" + timescore + "です");//タイムをカウントアップscriptのテキストから持ってくる
+
         //キャラやカメラの移動を停止させる
 
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
-        NextText.enabled = false;
-        gameOverCanvasPrefab = Instantiate(gameOverCanvasPrefab);
-        NextText.enabled = true;
+       
 
+        FadeManager.FadeOut(0);
 
     }
 }

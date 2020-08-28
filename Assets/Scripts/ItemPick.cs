@@ -53,6 +53,7 @@ public class ItemPick : MonoBehaviour
                     Debug.Log("鍵を入手した");
                     Destroy(this.gameObject);
                     flagscript.Key = true;
+
                 }
             }
         }
