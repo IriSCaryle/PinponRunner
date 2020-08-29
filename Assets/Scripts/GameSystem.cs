@@ -357,7 +357,7 @@ public class GameSystem : MonoBehaviour
         
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
-        
+        playerscript.enabled = false; 
         
        
 
@@ -376,7 +376,7 @@ public class GameSystem : MonoBehaviour
 
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
-       
+        playerscript.enabled = false;
 
         FadeManager.FadeOut(0);
 

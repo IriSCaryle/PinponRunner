@@ -11,7 +11,7 @@ public class Transtion : MonoBehaviour
     private void Start()
     {
         //GetComponentを用いてAnimatorコンポーネントを取り出す.
-        Animator animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         this.gameObject.GetComponent<Player>();
         //あらかじめ設定していたintパラメーター「trans」の値を取り出す.

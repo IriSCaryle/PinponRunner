@@ -14,12 +14,15 @@ public class Patrol : MonoBehaviour
     [SerializeField] int destPoint = 0;
     private NavMeshAgent agent;
 
-    Vector3 playerPos;
-    GameObject player;
-    float distance;
-    [SerializeField] float trackingRange = 3f;
-    [SerializeField] float quitRange = 5f;
-    [SerializeField] bool tracking = false;
+    public Vector3 playerPos;
+    public GameObject player;
+    public float distance;
+   
+    [SerializeField] public float trackingRange = 10f;
+    [SerializeField] public float quitRange = 13f;
+    [SerializeField] public bool tracking = false;
+    public GameObject eventmanager;
+    public GameSystem gamesystem;
     
 
     void Start()
@@ -29,12 +32,15 @@ public class Patrol : MonoBehaviour
         // autoBraking を無効にすると、目標地点の間を継続的に移動します
         //(つまり、エージェントは目標地点に近づいても
         // 速度をおとしません)
-        agent.autoBraking = true;
+        agent.autoBraking = false;
 
         GotoNextPoint();
 
         //追跡したいオブジェクトの名前を入れる
         player = GameObject.Find("player");
+
+        gamesystem =eventmanager.GetComponent<GameSystem>();
+      
     }
 
 
@@ -61,6 +67,9 @@ public class Patrol : MonoBehaviour
         distance = Vector3.Distance(this.transform.position, playerPos);
 
 
+
+        
+
         if (tracking)
         {
             //追跡の時、quitRangeより距離が離れたら中止
@@ -84,12 +93,21 @@ public class Patrol : MonoBehaviour
 
             // エージェントが現目標地点に近づいてきたら、
             // 次の目標地点を選択します
-            if (!agent.pathPending && agent.remainingDistance < 0.5f) { 
-            GotoNextPoint();
+            if (!agent.pathPending && agent.remainingDistance < 0.5f)
+            {
+                GotoNextPoint();
+            }
         }
-            
+            if (gamesystem.Key == true)
+            {
+            trackingRange = 100;
+
+            quitRange = 200;
+            }
+
         }
-    }
+
+
 
     void OnDrawGizmosSelected()
     {
@@ -101,4 +119,8 @@ public class Patrol : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, quitRange);
     }
+
+
+
+
 }

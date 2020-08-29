@@ -115,7 +115,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy") == true)
         {
 
-            eventsys.GameOver();
+           // eventsys.GameOver();
         }
     }
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
