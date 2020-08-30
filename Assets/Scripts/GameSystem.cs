@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Text.RegularExpressions;
 
 public class GameSystem : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GameSystem : MonoBehaviour
     public bool countdown = false; //カウントダウンのブール値
 
     public static string timescore;//他シーンへ渡すクリアタイム
-
+    public static int timetoint;
     public Rigidbody playerRigidbody;//プレイヤーのリジットボディ
     public GameObject StopWatch;//タイマーマネージャーオブジェクト
     public CountUp StringTime;//カウントアップscript
@@ -118,6 +119,7 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FadeManager.FadeIn();
         InHouse = false;
 
         KeyGetted = false;
@@ -372,13 +374,15 @@ public class GameSystem : MonoBehaviour
         timescore = StringTime.TotalTime;
         Debug.Log("タイムは" + timescore + "です");//タイムをカウントアップscriptのテキストから持ってくる
 
+        timetoint = int.Parse(Regex.Replace(timescore, @"[^0-9]", ""));
+        Debug.Log("intに直すと" +timetoint + "です");
         //キャラやカメラの移動を停止させる
 
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
         playerscript.enabled = false;
 
-        FadeManager.FadeOut(0);
+        FadeManager.FadeOut(5);
 
     }
 }

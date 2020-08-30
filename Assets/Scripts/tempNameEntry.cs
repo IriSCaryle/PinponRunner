@@ -9,10 +9,11 @@ public class tempNameEntry : MonoBehaviour
 {
 
     // inputfieldを格納する変数
-    InputField inputfield;
+   public InputField inputfield;
 
     // テキストを格納する変数
     public Text EntryName;
+    public string nowplayername;
 
 
     // Use this for initialization
@@ -29,6 +30,8 @@ public class tempNameEntry : MonoBehaviour
     {
 
     }
+
+    
 
 }
  

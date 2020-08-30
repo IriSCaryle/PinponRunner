@@ -8,11 +8,13 @@ public class ManagerScene : MonoBehaviour
 {
     public GameObject PopupRuleCanvas;
     public Canvas Canvas;
-
+    public GameObject SceneManage;
+    public FadeManager fade;
     private void Start()
     {
         Canvas = PopupRuleCanvas.GetComponent<Canvas>();
         Canvas.enabled =false;
+        fade = SceneManage.GetComponent<FadeManager>();
     }
 
     public void OnClickStartButton()//始めるボタンが押されたとき
@@ -41,10 +43,23 @@ public class ManagerScene : MonoBehaviour
     }
     public void OnClickNoButton()//始めるボタンが押されたとき
     {
-        SceneManager.LoadScene("map2Scene");
+        FadeManager.FadeOut(3);
+       // SceneManager.LoadScene("map2Scene");
     }
+    //　ゲーム終了ボタンを押したら実行する
+    public void EndGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#elif UNITY_WEBPLAYER
+		Application.OpenURL("http://www.yahoo.co.jp/");
+#else
+		Application.Quit();
+#endif
+    }
+
 
 }
 
 
- // class TestController
+// class TestController
