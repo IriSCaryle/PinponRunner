@@ -279,7 +279,7 @@ public class ClearResultSc : MonoBehaviour
         }
         for(int n = 0; n < TimeArray.Length; n++)
         {
-            PlayerPrefs.SetString("BoadDayTime" + n, TimeArray[n].Year.ToString()+"年" + TimeArray[n].Month.ToString()+ "月" + TimeArray[n].Day.ToString()+"日" + DateTime.Now.ToString());
+            PlayerPrefs.SetString("BoadDayTime" + n, TimeArray[n].Year.ToString()+"年" + TimeArray[n].Month.ToString()+ "月" + TimeArray[n].Day.ToString()+"日" + DateTime.Now.Hour.ToString() +"時" + DateTime.Now.Minute.ToString() + "分");
             Debug.Log(n + "番目に日時を保存");
         }
 

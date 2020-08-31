@@ -43,7 +43,7 @@ public class Stamina : MonoBehaviour
 
     void tentionconsum()
     {
-        if (TentionScript.tempcount >= 30)//テンションの数値が50以上になった時
+        if (TentionScript.tempcount >= 30)//テンションの数値が30以上になった時
         {
             if (Input.GetKeyDown(KeyCode.T))//Tが押されたら
             {

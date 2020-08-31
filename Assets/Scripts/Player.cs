@@ -65,6 +65,10 @@ public class Player : MonoBehaviour
 
     public GameObject eventmanager;
     public GameSystem eventsys;
+
+    public Vector3 ColliderPos;
+    public GameObject obj;
+    public bool spawnenemy;
     //*------------*//
     void Start()
     {
@@ -115,7 +119,7 @@ public class Player : MonoBehaviour
         if(collision.gameObject.CompareTag("Enemy") == true)
         {
 
-           // eventsys.GameOver();
+           eventsys.GameOver();
         }
     }
     private void OnTriggerStay(Collider other)//イベント1用インターホンのコライダーに入った時
@@ -125,9 +129,8 @@ public class Player : MonoBehaviour
             
             actiontxt.gameObject.SetActive(true);//クリックでインターホンを連打 を表示
             repeatedhitstxt.gameObject.SetActive(true);//連打回数を表示
-            
 
-
+            ColliderPos = other.gameObject.transform.position;
             tmpEvent = other.gameObject;    //EventプレハブをローカルのGameObject変数に入れる
 
             ParentEvent = other.transform.parent.gameObject;//コライダーの親を取得
@@ -161,6 +164,7 @@ public class Player : MonoBehaviour
             Debug.Log(hitstotal);
             
             
+            
 
         }
 
@@ -170,6 +174,8 @@ public class Player : MonoBehaviour
 
     void DestroyEvent()
     {
+       
+        
         Debug.Log("実行された");
         actiontxt.gameObject.SetActive(false);   //上部で表示したテキストを非表示
         repeatedhitstxt.gameObject.SetActive(false);
@@ -182,17 +188,26 @@ public class Player : MonoBehaviour
         tmpPointCanvas.gameObject.SetActive(false);
         tmpEvent.gameObject.SetActive(false);            //ピンポンしたEventプレハブを消す
 
-        
+        Invoke("EnemySpawn", 2);
 
         
         counted = true;                 //ピンポン完了数が一度に2以上加算されないためにtrueにする
 
         DestroyComp = true;
 
+        
+        
+
+
+
     }
 
+    void EnemySpawn()
+    {
+        obj = (GameObject)Resources.Load("enemy03 1");
+        Instantiate(obj, ColliderPos, Quaternion.identity);
 
-
+    }
 
     void Walking()
     {

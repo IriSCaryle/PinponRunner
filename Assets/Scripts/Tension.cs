@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Tension : MonoBehaviour
 {
 
-
+    public bool tentiondown;
     public Player playerscript;//プレイヤースクリプト
     public Image tentionimage;
     public float Tentioncurrent;
@@ -29,6 +29,7 @@ public class Tension : MonoBehaviour
             Tention();
        
         TentionReset();
+        TentionReset2();
         
     }
     void Tention()
@@ -53,7 +54,17 @@ public class Tension : MonoBehaviour
             tentionimage.fillAmount = Tentioncurrent / maxTention;
         }
     }
-  
+    public void TentionReset2()
+    {if (tentiondown == true)
+        {
+            Debug.Log("テンションダウン");
+            Tentioncurrent = 0;
+            tempcount = 0;
+            playerscript.pinpontotal = 0;
+            tentionimage.fillAmount = Tentioncurrent / maxTention;
+            tentiondown = false;
+        }
+    }
 
-    
+
 }

@@ -6,6 +6,8 @@ using System.Text.RegularExpressions;
 
 public class GameSystem : MonoBehaviour
 {
+
+
     //ブール値でゲームのフラグの変数を作成
     public bool Key;
     public bool MissionComprete;
@@ -360,10 +362,10 @@ public class GameSystem : MonoBehaviour
         
         playerRigidbody.isKinematic = true;
         camScript.enabled = false;
-        playerscript.enabled = false; 
-        
-       
+        playerscript.enabled = false;
 
+
+        FadeManager.FadeOut(7);
 
     }
     public void GameClear()
