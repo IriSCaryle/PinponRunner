@@ -12,9 +12,11 @@ public class ManagerScene : MonoBehaviour
     public FadeManager fade;
     private void Start()
     {
+        
         Canvas = PopupRuleCanvas.GetComponent<Canvas>();
         Canvas.enabled =false;
         fade = SceneManage.GetComponent<FadeManager>();
+        FadeManager.FadeIn();
     }
 
     public void OnClickStartButton()//始めるボタンが押されたとき
@@ -24,17 +26,17 @@ public class ManagerScene : MonoBehaviour
     }
     public void OnClickSettingButton()//設定ボタンが押されたとき
     {
-        SceneManager.LoadScene("SettingScene");
+        FadeManager.FadeOut(1);
     }
     public void OnClickResultButton()//リザルトボタンが押されたとき
     {
-        SceneManager.LoadScene("ResultScene");
+        FadeManager.FadeOut(2);
 
     }
 
     public void OnClickBackButton()//タイトルに戻りたい時
     {
-        SceneManager.LoadScene("TitleScreen");
+        FadeManager.FadeOut(0);
 
     }
     public void OnClickYesButton()//始めるボタンが押されたとき

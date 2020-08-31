@@ -981,7 +981,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1365541131}
-        m_MethodName: OnClickBackButton
+        m_MethodName: OnClickBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1188,11 +1188,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1365541130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6de6d2b919e991241ba082d1531b5558, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f361c789500c1648a2ec9d0fe435ddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PopupRuleCanvas: {fileID: 0}
-  Canvas: {fileID: 0}
 --- !u!4 &1365541132
 Transform:
   m_ObjectHideFlags: 0

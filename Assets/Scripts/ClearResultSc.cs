@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ClearResultSc : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class ClearResultSc : MonoBehaviour
     bool isntrankin;//ランクインしていない判定
     bool isupdate;//記録更新してない判定
     //オブジェクトとして呼ぶための変数
+    public DateTime Todaynow;//日時
+    public DateTime[] TimeArray = new DateTime[10];
+    public DateTime tempTime;
+
     public Image Rank;
     public Image ClearTime;
     public Image RankInTxt;
@@ -63,17 +68,20 @@ public class ClearResultSc : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         NextTxt.enabled = false;
         NumClear();
         ImageClear();
-
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.Confined;
         int tempinttime = 0;
         string tempstringtime = "";
        TimeTemp  = GameSystem.timescore;//Gamemanagerのタイムスコアを持ってくる
         TimetointTemp = GameSystem.timetoint;//intに変換したタイムを持ってくる
         nowTimeScore = TimeTemp;//現在の記録を残す
         nowTimeintScore = TimetointTemp;//int型でも残す
-
+        TimeScore.text = nowTimeScore;
+        Todaynow = DateTime.Now;
         //事前に設定したボーダーより小さければ配列番号をbordernumに吐く//クリアタイム判断処理
         for(int i=0; i <= timeBorder.Length; i++)
         {
@@ -100,12 +108,17 @@ public class ClearResultSc : MonoBehaviour
                 tempinttime = Timeboadtoint[j];//int型の前のデータを一時的に入れる
                 tempstringtime = Timeboad[j];//string型**
                 TimeboadtmpName = TimeboadName[j];//すでに入っている名前をtempで*名前*
+                tempTime = TimeArray[j];//時間
+
                 Timeboadtoint[j] = TimetointTemp;//int型のクリアタイムを配列の中に入れる
                 Timeboad[j] = TimeTemp;//string型**
                 TimeboadName[j] = Playernames;//nowPlayerを現在のプレイヤーネームとして仮に入れる(あとで入力した値を入れる)
+                TimeArray[j] = Todaynow;//時間
+
                 TimeTemp = tempstringtime;//string型の前のデータを現在のクリアタイムの中に入れ次のループで比較する
                 TimetointTemp = tempinttime;//int型**
                 Playernames = TimeboadtmpName;//入れ替えたプレイヤーネームを次入れ替えするプレイヤーネームに入れる
+                Todaynow = tempTime;
                 Debug.Log(j + "番目の配列が入れ替わりました");
 
             }
@@ -180,7 +193,7 @@ public class ClearResultSc : MonoBehaviour
         if (isFI && isEnd == false)
         {
             Clicknum += 1;
-            Debug.Log("truedayo");
+           
             isFI = false;
             isFO = true;
             if(Clicknum == 6)
@@ -264,6 +277,12 @@ public class ClearResultSc : MonoBehaviour
             PlayerPrefs.SetString("BoadTime" + h, Timeboad[h]);
             Debug.Log(h + "番目にタイムを保存");
         }
+        for(int n = 0; n < TimeArray.Length; n++)
+        {
+            PlayerPrefs.SetString("BoadDayTime" + n, TimeArray[n].Year.ToString()+"年" + TimeArray[n].Month.ToString()+ "月" + TimeArray[n].Day.ToString()+"日" + DateTime.Now.ToString());
+            Debug.Log(n + "番目に日時を保存");
+        }
+
 
         FadeManager.FadeOut(0);
     }

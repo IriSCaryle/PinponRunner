@@ -116,12 +116,13 @@ public class GameSystem : MonoBehaviour
     public GameObject fedemanager;
 
 
+    public Text Warn;
     // Start is called before the first frame update
     void Start()
     {
         FadeManager.FadeIn();
         InHouse = false;
-
+        Warn.enabled = false;
         KeyGetted = false;
         //変数の初期化
         Key = false;
@@ -339,7 +340,7 @@ public class GameSystem : MonoBehaviour
             KeyObject.transform.Find("PointCanvas").gameObject.SetActive(false);
             PlayerHome.transform.Find("homecollider").gameObject.SetActive(true);//ホームコライダー表示
             PlayerHome.transform.Find("HomePointCanvas").gameObject.SetActive(true);//ホームアイコン表示
-
+            Warn.enabled = true;
         }
         if(InHouse == true)
         {
