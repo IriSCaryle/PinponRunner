@@ -113,6 +113,8 @@ public class Player : MonoBehaviour
     {
         
     }
+   
+    
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -137,11 +139,11 @@ public class Player : MonoBehaviour
 
             tmpPointCanvas = ParentEvent.transform.Find("PointCanvas").GetComponent<Canvas>();
              second += Time.deltaTime;
-            if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
+           if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {
                 Debug.Log("クリック!");
                 pinpontotal++;
-                PinponCounter++;
+               PinponCounter++;
                 repeatedhitstxt.text = "" + PinponCounter;
 
                 

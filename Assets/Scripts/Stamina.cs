@@ -36,7 +36,7 @@ public class Stamina : MonoBehaviour
     void staminamax()
     {
         if (tentionmax == true) {//テンションゲージを消費するとスタミナが100固定になりfillamountに常に送られる
-            Staminacurrent = 100;
+            Staminacurrent = maxStamina;
             image.fillAmount = Staminacurrent / maxStamina;
             }
     }
