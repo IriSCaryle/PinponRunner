@@ -15,11 +15,13 @@ public class Stamina : MonoBehaviour
     public bool tentionmax;
     public Tension TentionScript;
     public int HiTentionMode;
-
+    public AudioSource audiosource;
+    public AudioClip Hitention;
+    bool isoneshot;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isoneshot = false;
 
 
     }
@@ -45,9 +47,14 @@ public class Stamina : MonoBehaviour
     {
         if (TentionScript.tempcount >= 30)//テンションの数値が30以上になった時
         {
+            if (isoneshot == false)
+            {
+                audiosource.PlayOneShot(Hitention);
+                isoneshot = true;
+            }
             if (Input.GetKeyDown(KeyCode.T))//Tが押されたら
             {
-
+                isoneshot = false;
 
                 tentionmax = true; //テンションを消費する(この条件でif文を書くとそれが動く)
 

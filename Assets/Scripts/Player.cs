@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 //CapsuleColliderとRigidbodyを追加
 [RequireComponent(typeof(CapsuleCollider))]
@@ -28,6 +29,9 @@ public class Player : MonoBehaviour
      Rigidbody rb;
     //Capsule Colliderを入れる
      CapsuleCollider caps;
+
+
+
     //*-------------*//
 
     //*イベント1関連*//
@@ -70,6 +74,16 @@ public class Player : MonoBehaviour
     public GameObject obj;
     public bool spawnenemy;
     //*------------*//
+
+
+    //音声
+
+
+    public AudioSource audiosource;
+    public AudioSource player_audiosource;
+    public AudioClip pinpon;
+    public AudioClip player_walk;
+    public AudioClip player_run;
     void Start()
     {
 
@@ -107,7 +121,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Walking();
-
+        
     }
     void LateUpdate()
     {
@@ -142,6 +156,7 @@ public class Player : MonoBehaviour
            if (Input.GetMouseButtonDown(0))  //左クリックが押されたら もしもカウントしていなかったらピンポン完了数を1増やし クリックしただけPinponCounterに入れる
             {
                 Debug.Log("クリック!");
+                audiosource.PlayOneShot(pinpon);
                 pinpontotal++;
                PinponCounter++;
                 repeatedhitstxt.text = "" + PinponCounter;
@@ -226,12 +241,17 @@ public class Player : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") == 1)
         {
             walk = true;
-            
+
         }
-        else
+        else if (Input.GetAxisRaw("Horizontal") == 1 || Input.GetAxisRaw("Horizontal") == -1)
+        {
+            walk = true;
+        }
+        else if((Input.GetAxisRaw("Vertical") == 0) && (Input.GetAxisRaw("Horizontal") == 0))
         {
             walk = false;
         }
+    
         //Debug.Log(Input.GetKey(KeyCode.LeftShift));
         // Debug.Log(walk);
 
@@ -246,6 +266,7 @@ public class Player : MonoBehaviour
         //前進していてかつShiftが押されているとダッシュ倍率をかける。そうでなければ通常速度
         if (walk == true && Input.GetKey(KeyCode.LeftShift) == true)
         {
+            walk = false;
             transform.position += transform.forward * z * DashSpeed + transform.right * x;
             run = true;
         }
@@ -259,4 +280,22 @@ public class Player : MonoBehaviour
         //Debug.Log(walk);
 
     }
-}
+    void WalkingSound()
+    {
+       
+        player_audiosource.PlayOneShot(player_walk);
+        
+        
+        
+        
+    }
+    void RunningSound()
+    {
+        
+        player_audiosource.PlayOneShot(player_run);
+    }
+    void StoppingSound()
+    {
+        player_audiosource.Stop();
+    }
+ }

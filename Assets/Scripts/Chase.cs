@@ -7,17 +7,23 @@ using UnityEngine.AI;
 public class Chase : MonoBehaviour
 {
     public GameObject target;
-    private NavMeshAgent agent;
+    public NavMeshAgent agent;
+    public AudioSource audiosource;
+    public AudioClip running;
+    public AudioClip walking;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+      
         target = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-        agent.destination = target.transform.position;
+        
+            agent.destination = target.transform.position; //navMeshAgentの操作
+        
+       
     }
 
 
@@ -27,5 +33,14 @@ public class Chase : MonoBehaviour
         {
             Debug.Log("つかまりー");
         }
+    }
+
+    public void Walksound()
+    {
+        audiosource.PlayOneShot(walking);
+    }
+    public void Rundound()
+    {
+        audiosource.PlayOneShot(running);
     }
 }

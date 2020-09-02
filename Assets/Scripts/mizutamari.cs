@@ -7,6 +7,8 @@ public class mizutamari : MonoBehaviour
     public Tension tensionsc;
     
     public Collider MizutamaCollider;
+    public AudioSource audiosource;
+    public AudioClip TentionDown;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,7 @@ public class mizutamari : MonoBehaviour
        
         if (other.gameObject.CompareTag("Player")) {
             tensionsc.tentiondown = true;
+            audiosource.PlayOneShot(TentionDown);
             Debug.Log("プレイヤー");
         }
     }

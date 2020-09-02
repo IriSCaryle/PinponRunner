@@ -64,6 +64,13 @@ public class ClearResultSc : MonoBehaviour
     //エントリーネーム関連
     public tempNameEntry NameEntry;
 
+    //音
+
+    public AudioSource audioSource;
+    public AudioClip enter;
+    
+    public AudioSource BGMAaudioscource;
+    public AudioSource newrecordsouce;
 
     // Start is called before the first frame update
     void Start()
@@ -157,6 +164,7 @@ public class ClearResultSc : MonoBehaviour
         ResultCanvas[5] = CommentsAlpha;
 
         FadeManager.FadeIn();
+        BGMAaudioscource.Play();
 
         isFO = true;
         Clicknum = 0;
@@ -202,10 +210,13 @@ public class ClearResultSc : MonoBehaviour
                 {
                     RankInTxtAlpha.SetAlpha(1);
                     RankNumber[ranknum].SetAlpha(1);
+                    
                 }
                 if (isupdate ==true)
                 {
+                    
                     RankUpdateAlpha.SetAlpha(1);
+                    newrecordsouce.Play();
                 }
                 NextTxt.enabled = true;
                 isEnd = true;
@@ -216,6 +227,7 @@ public class ClearResultSc : MonoBehaviour
 
             if (isntrankin ==false &&Input.GetMouseButtonDown(0))
             {
+                audioSource.PlayOneShot(enter);
                 resultcanvas.enabled=false;
                 NameEntryCanvas.enabled=true;
 
@@ -232,7 +244,7 @@ public class ClearResultSc : MonoBehaviour
     void fadein()
     {
         if (isFO && isFI == false && isEnd == false)
-        {
+        { 
             counter += Time.deltaTime;
             // Debug.Log(counter);
             ResultCanvas[Clicknum].SetAlpha(counter / waitTime);
@@ -250,7 +262,7 @@ public class ClearResultSc : MonoBehaviour
     public void OnEntyName()
     {
 
-
+        audioSource.PlayOneShot(enter);
 
         NameEntry.nowplayername = NameEntry.inputfield.text;
         Debug.Log("YourNameis" + NameEntry.nowplayername);

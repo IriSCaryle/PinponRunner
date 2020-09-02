@@ -8,6 +8,9 @@ public class EnemyTranstion : MonoBehaviour
     public int trans;
     public Patrol patrolSC;
     public GameObject enemy;
+    public AudioSource audiosource;
+    public AudioClip walk;
+    public AudioClip run;
     // Start is called before the first frame update
     void Start()
     {
@@ -35,5 +38,14 @@ public class EnemyTranstion : MonoBehaviour
             animator.SetInteger("trans", trans);
 
         }
+    }
+
+    public void Walk()
+    {
+        audiosource.PlayOneShot(walk);
+    }
+    public void Run()
+    {
+        audiosource.PlayOneShot(run);
     }
 }

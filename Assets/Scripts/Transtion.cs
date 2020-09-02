@@ -25,8 +25,8 @@ public class Transtion : MonoBehaviour
 
     void Update()
     {
-       
-        
+       // Debug.Log(player.run);
+       // Debug.Log(player.walk);
         if (player.walk == true)//歩くモーションにする
         {
             trans = 2;

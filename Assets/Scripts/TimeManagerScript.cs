@@ -18,6 +18,8 @@ public class TimeManagerScript : MonoBehaviour
     Rigidbody playerRigidbody;
     GameObject gameManagerObj;
     GameSystem gameManager;
+    public AudioSource audiosource;
+    public AudioClip countdown;
    // SoundManager soundManager;
 
     void Start()
@@ -36,11 +38,13 @@ public class TimeManagerScript : MonoBehaviour
        // else
         //{
             StartCoroutine(ReadyGo());
+        
        // }
     }
 
     IEnumerator ReadyGo()
     {
+        
         yield return new WaitForEndOfFrame();
 
         //プレイヤーの入力を禁止する
@@ -51,7 +55,7 @@ public class TimeManagerScript : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
         readyGoText.enabled = true;
-
+        audiosource.PlayOneShot(countdown);
         readyGoText.text = "3";
 
         yield return new WaitForSeconds(1.0f);

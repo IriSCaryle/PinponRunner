@@ -11,7 +11,8 @@ public class ResultScript : MonoBehaviour
     public Text[] TimeTextBoad;
     public string[] DayTimeBoad;
     public Text[] DayTimeTextBoad;
-
+    public AudioSource audiosource;
+    public AudioClip cansel;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +46,7 @@ public class ResultScript : MonoBehaviour
     }
     public void OnClickBack()
     {
+        audiosource.PlayOneShot(cansel);
         FadeManager.FadeOut(0);
     }
 }

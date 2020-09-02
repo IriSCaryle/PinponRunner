@@ -13,8 +13,10 @@ public class ItemPick : MonoBehaviour
     public GameObject AxisObject;
     public Axis camSC;
     bool isexit;
-
-
+    public AudioSource audiosource;
+    public AudioClip enter;
+    public AudioClip cansel;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +83,9 @@ public class ItemPick : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+
+        audiosource.PlayOneShot(enter);
+
         Time.timeScale = 1f;//時間を再開
         camSC.enabled = true;//カメラを再生
         Destroy(this.gameObject);
@@ -93,6 +98,8 @@ public class ItemPick : MonoBehaviour
         //カーソル固定非表示
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        audiosource.PlayOneShot(cansel);
 
         Time.timeScale = 1f;//時間を再開
         camSC.enabled = true;//カメラを再生

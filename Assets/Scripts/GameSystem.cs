@@ -117,6 +117,9 @@ public class GameSystem : MonoBehaviour
     //*フェードアウト*//
     public GameObject fedemanager;
 
+    //*音*//
+    public AudioSource audiosource;
+    
 
     public Text Warn;
     // Start is called before the first frame update
@@ -153,8 +156,8 @@ public class GameSystem : MonoBehaviour
         {
             DebugLog.enabled = false;
         }
-       
 
+        audiosource.Play();
 
 
     }
@@ -300,6 +303,7 @@ public class GameSystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         Mission1();
         Mission2();
        

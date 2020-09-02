@@ -10,6 +10,9 @@ public class InHouseSC : MonoBehaviour
     bool isexit;
     public GameObject Axis;
     public Axis cameraScript;
+    public AudioSource audiosource;
+    public AudioClip enter;
+    public AudioClip cansel;
 
     // Start is called before the first frame update
     void Start()
@@ -51,6 +54,8 @@ public class InHouseSC : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
+        audiosource.PlayOneShot(enter);
+
         Time.timeScale = 1f;//時間を再開
      
         gamesystem.InHouse = true;
@@ -61,6 +66,8 @@ public class InHouseSC : MonoBehaviour
         //カーソル固定非表示
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        audiosource.PlayOneShot(cansel);
 
         Time.timeScale = 1f;//時間を再開
         cameraScript.enabled = true;//カメラを再生

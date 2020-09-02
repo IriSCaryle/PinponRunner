@@ -12,6 +12,7 @@ TagManager:
   - Target
   - home
   - Enemy
+  - BGMManager
   layers:
   - Default
   - TransparentFX

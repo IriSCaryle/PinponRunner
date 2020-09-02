@@ -53,7 +53,7 @@ public class CountUp : MonoBehaviour
         if (gameManager.countdown == false){
 
             TotalTime = CountUpText.text;
-            //Debug.Log(TotalTime);
+            //  Debug.Log(TotalTime);
         }
         
     }
