@@ -49,12 +49,12 @@ public class ManagerScene : MonoBehaviour
         FadeManager.FadeOut(0);
 
     }
-    public void OnClickYesButton()//始めるボタンが押されたとき
+    public void OnClickYesButton()//操作説明が押されたとき
     {
         audiosource.PlayOneShot(enter);
-        SceneManager.LoadScene("");
+        FadeManager.FadeOut(8);
     }
-    public void OnClickNoButton()//始めるボタンが押されたとき
+    public void OnClickNoButton()//いいえボタンが押されたとき
     {
         audiosource.PlayOneShot(cancel);
         FadeManager.FadeOut(3);
