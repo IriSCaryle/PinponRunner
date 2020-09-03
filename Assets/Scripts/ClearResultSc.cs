@@ -83,7 +83,8 @@ public class ClearResultSc : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        isupdate = false;
+        isntrankin = false;
         NextTxt.enabled = false;
         NumClear();
         ImageClear();
@@ -123,6 +124,16 @@ public class ClearResultSc : MonoBehaviour
             Timeboadtoint[r] = PlayerPrefs.GetInt("Boadint" + r);
             Debug.Log(r + "番目のintのタイムを読み込み");
         }
+        
+        if(Timeboadtoint[0] == 0)
+        {
+            for(int a=0;a< Timeboadtoint.Length; a++)
+            {
+                Timeboadtoint[a] = 999999;
+                Debug.Log("int配列を初期化");
+            }
+        }
+                
         A.enabled = false;
         B.enabled = false;
         C.enabled = false;
@@ -154,6 +165,7 @@ public class ClearResultSc : MonoBehaviour
         {
             if(Timeboadtoint[j] >= TimetointTemp)
             {
+                Debug.Log(j + "番目より速い");
                 tempinttime = Timeboadtoint[j];//int型の前のデータを一時的に入れる
                 tempstringtime = Timeboad[j];//string型**
                 TimeboadtmpName = TimeboadName[j];//すでに入っている名前をtempで*名前*
@@ -309,7 +321,6 @@ public class ClearResultSc : MonoBehaviour
 
     public void OnEntyName()
     {
-
         audioSource.PlayOneShot(enter);
 
         NameEntry.nowplayername = NameEntry.inputfield.text;

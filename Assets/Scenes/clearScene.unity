@@ -308,6 +308,19 @@ MonoBehaviour:
   - j
   TimeboadtmpName: 
   Playernames: nowPlayer
+  TodaynowString: 
+  tempTimestring: 
+  TimeArraystring:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   Rank: {fileID: 1890874116}
   ClearTime: {fileID: 1864526715}
   RankInTxt: {fileID: 1733381879}
