@@ -25,9 +25,11 @@ public class ClearResultSc : MonoBehaviour
     bool isupdate;//記録更新してない判定
     //オブジェクトとして呼ぶための変数
     public DateTime Todaynow;//日時
+    public String TodaynowString;
     public DateTime[] TimeArray = new DateTime[10];
     public DateTime tempTime;
-
+    public String tempTimestring;
+    public String[] TimeArraystring = new string[10];
     public Image Rank;
     public Image ClearTime;
     public Image RankInTxt;
@@ -95,7 +97,32 @@ public class ClearResultSc : MonoBehaviour
         nowTimeintScore = TimetointTemp;//int型でも残す
         TimeScore.text = nowTimeScore;
         Todaynow = DateTime.Now;
+        TodaynowString = Todaynow.Year.ToString() +"年" +Todaynow.Month.ToString() +"月" + Todaynow.Day.ToString() +"日" +Todaynow.Hour.ToString() +"時" + Todaynow.Minute.ToString() + "分"; 
 
+
+        //保存したスコアを読み込む
+        for (int o = 0; o < TimeboadName.Length; o++)//名前
+        {
+
+            TimeboadName[o]  = PlayerPrefs.GetString("BoadName" + o);
+            Debug.Log(o + "番目を読み込み");
+
+        }
+        for (int p = 0; p < Timeboad.Length; p++)//タイム
+        {
+            Timeboad[p] = PlayerPrefs.GetString("BoadTime" + p);
+            Debug.Log(p + "番目のタイムを読み込み");
+        }
+        for (int q = 0; q < TimeArray.Length; q++)//日時
+        {
+           TimeArraystring[q] = PlayerPrefs.GetString("BoadDayTime" + q);
+            Debug.Log(q + "番目の日時を読み込み");
+        }
+        for (int r = 0; r < Timeboadtoint.Length; r++)//inttime
+        {
+            Timeboadtoint[r] = PlayerPrefs.GetInt("Boadint" + r);
+            Debug.Log(r + "番目のintのタイムを読み込み");
+        }
         A.enabled = false;
         B.enabled = false;
         C.enabled = false;
@@ -130,17 +157,21 @@ public class ClearResultSc : MonoBehaviour
                 tempinttime = Timeboadtoint[j];//int型の前のデータを一時的に入れる
                 tempstringtime = Timeboad[j];//string型**
                 TimeboadtmpName = TimeboadName[j];//すでに入っている名前をtempで*名前*
-                tempTime = TimeArray[j];//時間
+                //時間
+                tempTimestring = TimeArraystring[j];
+
 
                 Timeboadtoint[j] = TimetointTemp;//int型のクリアタイムを配列の中に入れる
                 Timeboad[j] = TimeTemp;//string型**
                 TimeboadName[j] = Playernames;//nowPlayerを現在のプレイヤーネームとして仮に入れる(あとで入力した値を入れる)
-                TimeArray[j] = Todaynow;//時間
+                //時間
+                TimeArraystring[j] = TodaynowString;
 
                 TimeTemp = tempstringtime;//string型の前のデータを現在のクリアタイムの中に入れ次のループで比較する
                 TimetointTemp = tempinttime;//int型**
                 Playernames = TimeboadtmpName;//入れ替えたプレイヤーネームを次入れ替えするプレイヤーネームに入れる
-                Todaynow = tempTime;
+               
+                TodaynowString = tempTimestring;
                 Debug.Log(j + "番目の配列が入れ替わりました");
 
             }
@@ -306,12 +337,16 @@ public class ClearResultSc : MonoBehaviour
             PlayerPrefs.SetString("BoadTime" + h, Timeboad[h]);
             Debug.Log(h + "番目にタイムを保存");
         }
-        for(int n = 0; n < TimeArray.Length; n++)
+        for(int n = 0; n < TimeArraystring.Length; n++)
         {
-            PlayerPrefs.SetString("BoadDayTime" + n, TimeArray[n].Year.ToString()+"年" + TimeArray[n].Month.ToString()+ "月" + TimeArray[n].Day.ToString()+"日" + DateTime.Now.Hour.ToString() +"時" + DateTime.Now.Minute.ToString() + "分");
+            PlayerPrefs.SetString("BoadDayTime" + n, TimeArraystring[n]);
             Debug.Log(n + "番目に日時を保存");
         }
-
+        for(int m =0; m<Timeboadtoint.Length; m++)
+        {
+            PlayerPrefs.SetInt("Boadint" + m , Timeboadtoint[m]);
+            Debug.Log(m+"番目にintのタイムを保存");
+        }
 
         FadeManager.FadeOut(0);
     }
