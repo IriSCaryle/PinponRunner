@@ -72,6 +72,12 @@ public class ClearResultSc : MonoBehaviour
     public AudioSource BGMAaudioscource;
     public AudioSource newrecordsouce;
 
+    //コメント
+    public Text A;
+    public Text B;
+    public Text C;
+    public Text D;
+    public Text[] CommentsText;
     // Start is called before the first frame update
     void Start()
     {
@@ -89,6 +95,15 @@ public class ClearResultSc : MonoBehaviour
         nowTimeintScore = TimetointTemp;//int型でも残す
         TimeScore.text = nowTimeScore;
         Todaynow = DateTime.Now;
+
+        A.enabled = false;
+        B.enabled = false;
+        C.enabled = false;
+        D.enabled = false;
+        CommentsText[0] = A;
+        CommentsText[1] = B;
+        CommentsText[2] = C;
+        CommentsText[3] = D;
         //事前に設定したボーダーより小さければ配列番号をbordernumに吐く//クリアタイム判断処理
         for(int i=0; i <= timeBorder.Length; i++)
         {
@@ -206,6 +221,8 @@ public class ClearResultSc : MonoBehaviour
             isFO = true;
             if(Clicknum == 6)
             {
+                CommentsText[bordernum].enabled = true;
+                
                 if (isntrankin == false)
                 {
                     RankInTxtAlpha.SetAlpha(1);
