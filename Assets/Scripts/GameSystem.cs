@@ -369,7 +369,7 @@ public class GameSystem : MonoBehaviour
         playerscript.enabled = false;
 
 
-        FadeManager.FadeOut(7);
+        FadeManager.FadeOut(6);
 
     }
     public void GameClear()
@@ -389,7 +389,7 @@ public class GameSystem : MonoBehaviour
         camScript.enabled = false;
         playerscript.enabled = false;
 
-        FadeManager.FadeOut(5);
+        FadeManager.FadeOut(4);
 
     }
 }

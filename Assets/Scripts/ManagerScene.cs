@@ -52,7 +52,7 @@ public class ManagerScene : MonoBehaviour
     public void OnClickYesButton()//操作説明が押されたとき
     {
         audiosource.PlayOneShot(enter);
-        FadeManager.FadeOut(8);
+        FadeManager.FadeOut(7);
     }
     public void OnClickNoButton()//いいえボタンが押されたとき
     {

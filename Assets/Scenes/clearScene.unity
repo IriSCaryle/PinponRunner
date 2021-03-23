@@ -354,15 +354,11 @@ MonoBehaviour:
   enter: {fileID: 8300000, guid: 092dca477f40a324db6e537328e9c66b, type: 3}
   BGMAaudioscource: {fileID: 969164538}
   newrecordsouce: {fileID: 1957171204}
-  A: {fileID: 1408838460}
-  B: {fileID: 1174273668}
-  C: {fileID: 1296135536}
-  D: {fileID: 632485269}
   CommentsText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1408838460}
+  - {fileID: 1174273668}
+  - {fileID: 1296135536}
+  - {fileID: 632485269}
 --- !u!4 &101298787
 Transform:
   m_ObjectHideFlags: 0

@@ -75,10 +75,7 @@ public class ClearResultSc : MonoBehaviour
     public AudioSource newrecordsouce;
 
     //コメント
-    public Text A;
-    public Text B;
-    public Text C;
-    public Text D;
+
     public Text[] CommentsText;
     // Start is called before the first frame update
     void Start()
@@ -98,8 +95,16 @@ public class ClearResultSc : MonoBehaviour
         nowTimeintScore = TimetointTemp;//int型でも残す
         TimeScore.text = nowTimeScore;
         Todaynow = DateTime.Now;
-        TodaynowString = Todaynow.Year.ToString() +"年" +Todaynow.Month.ToString() +"月" + Todaynow.Day.ToString() +"日" +Todaynow.Hour.ToString() +"時" + Todaynow.Minute.ToString() + "分"; 
+        TodaynowString = Todaynow.Year.ToString() +"年" +Todaynow.Month.ToString() +"月" + Todaynow.Day.ToString() +"日" +Todaynow.Hour.ToString() +"時" + Todaynow.Minute.ToString() + "分";
 
+
+        for (int r=0;r<CommentsText.Length;r++)
+        {
+
+            CommentsText[r].enabled = false;
+
+
+        }
 
         //保存したスコアを読み込む
         for (int o = 0; o < TimeboadName.Length; o++)//名前
@@ -121,27 +126,13 @@ public class ClearResultSc : MonoBehaviour
         }
         for (int r = 0; r < Timeboadtoint.Length; r++)//inttime
         {
-            Timeboadtoint[r] = PlayerPrefs.GetInt("Boadint" + r);
+            Timeboadtoint[r] = PlayerPrefs.GetInt("Boadint" + r,999999);
             Debug.Log(r + "番目のintのタイムを読み込み");
         }
-        
-        if(Timeboadtoint[0] == 0)
-        {
-            for(int a=0;a< Timeboadtoint.Length; a++)
-            {
-                Timeboadtoint[a] = 999999;
-                Debug.Log("int配列を初期化");
-            }
-        }
+      
                 
-        A.enabled = false;
-        B.enabled = false;
-        C.enabled = false;
-        D.enabled = false;
-        CommentsText[0] = A;
-        CommentsText[1] = B;
-        CommentsText[2] = C;
-        CommentsText[3] = D;
+ 
+
         //事前に設定したボーダーより小さければ配列番号をbordernumに吐く//クリアタイム判断処理
         for(int i=0; i <= timeBorder.Length; i++)
         {
@@ -341,22 +332,25 @@ public class ClearResultSc : MonoBehaviour
 
             PlayerPrefs.SetString("BoadName" + g, TimeboadName[g]);
             Debug.Log(g + "番目に保存");
-
+            PlayerPrefs.Save();
          }
         for(int h = 0; h < Timeboad.Length; h++)
         {
             PlayerPrefs.SetString("BoadTime" + h, Timeboad[h]);
             Debug.Log(h + "番目にタイムを保存");
+            PlayerPrefs.Save();
         }
         for(int n = 0; n < TimeArraystring.Length; n++)
         {
             PlayerPrefs.SetString("BoadDayTime" + n, TimeArraystring[n]);
             Debug.Log(n + "番目に日時を保存");
+            PlayerPrefs.Save();
         }
         for(int m =0; m<Timeboadtoint.Length; m++)
         {
             PlayerPrefs.SetInt("Boadint" + m , Timeboadtoint[m]);
             Debug.Log(m+"番目にintのタイムを保存");
+            PlayerPrefs.Save();
         }
 
         FadeManager.FadeOut(0);
