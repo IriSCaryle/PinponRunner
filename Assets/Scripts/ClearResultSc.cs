@@ -101,7 +101,7 @@ public class ClearResultSc : MonoBehaviour
         for (int r=0;r<CommentsText.Length;r++)
         {
 
-            CommentsText[r].enabled = false;
+            CommentsText[r].enabled = false; //全てのコメントを非表示にする
 
 
         }
@@ -292,7 +292,7 @@ public class ClearResultSc : MonoBehaviour
         
        
     }
-    void fadein()
+    void fadein()//フェードイン
     {
         if (isFO && isFI == false && isEnd == false)
         { 
